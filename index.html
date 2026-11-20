@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartGuard EV | Smart, Secure & Weatherproof EV Two-Wheeler Charging Station</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="./assets/index-DSoVCwSN.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-9skAk7eY.css">
+</head>
+<body>
+  <!-- THEFT / SECURITY EMERGENCY ALERT BANNER -->
+  <div id="theft-alarm-banner" class="theft-banner">
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <i data-lucide="shield-alert" style="width:1.5rem;height:1.5rem;"></i>
+      <span>SECURITY ALERT: PHYSICAL CABLE TAMPERING DETECTED! RELAYS ISOLATED.</span>
+    </div>
+    <button class="btn btn-sm btn-primary" onclick="window.SmartGuardApp.disarmTheft()">
+      <i data-lucide="shield-check"></i> DISARM & RESET
+    </button>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-badge"><i data-lucide="zap"></i> SMARTGUARD</span>
+        <span class="logo-text">EV<span class="logo-tag">PROTOTYPE</span></span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#viewer"><i data-lucide="eye"></i> 3D Station</a></li>
+        <li><a href="#features"><i data-lucide="shield"></i> 7-in-1 Protection</a></li>
+        <li><a href="#exploded"><i data-lucide="layers"></i> Exploded View</a></li>
+        <li><a href="#workflow"><i data-lucide="activity"></i> How It Works</a></li>
+        <li><a href="#simulation"><i data-lucide="sliders"></i> Charging Sim</a></li>
+        <li><a href="#dashboard"><i data-lucide="radio"></i> Remote IoT</a></li>
+        <li><a href="#specs"><i data-lucide="cpu"></i> Specifications</a></li>
+        <li><a href="./presentation.html" target="_blank" style="color:var(--neon-green);"><i data-lucide="presentation"></i> PPT Slides</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="btn-mode-toggle" class="btn btn-sm btn-outline-cyan" onclick="window.SmartGuardApp.toggleMode()">
+          <i data-lucide="moon"></i> Night Mode
+        </button>
+        <button id="btn-sound-toggle" class="btn btn-sm btn-outline-cyan" onclick="window.SmartGuardApp.toggleSound()">
+          <i data-lucide="volume-2"></i> Sound On
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 1. HERO SECTION -->
+  <header id="hero" class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i data-lucide="sparkles"></i>
+          <span>NEXT-GENERATION ELECTRIC TWO-WHEELER CHARGING</span>
+        </div>
+        <h1 class="hero-title">
+          CHARGE SMART.<br />
+          <span>RIDE CONFIDENT.</span>
+        </h1>
+        <p class="hero-subtitle">
+          SmartGuard EV is an intelligent, secure and weatherproof AC charging station purpose-built for electric scooters and motorcycles, featuring an automated cable retraction reel and integrated 7-in-1 multi-hazard protection.
+        </p>
+        <div class="hero-actions">
+          <a href="#viewer" class="btn btn-primary"><i data-lucide="eye"></i> EXPLORE 3D MODEL</a>
+          <a href="#features" class="btn btn-outline-cyan"><i data-lucide="shield-check"></i> VIEW 7-IN-1 PROTECTION</a>
+          <a href="#simulation" class="btn btn-cyan"><i data-lucide="zap"></i> LIVE SIMULATION</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <h4><i data-lucide="zap" class="text-cyan"></i> 3.6 kW</h4>
+            <p>Nominal Power (230V/16A)</p>
+          </div>
+          <div class="stat-item">
+            <h4><i data-lucide="cloud-rain" class="text-cyan"></i> IP65</h4>
+            <p>Design Target Rating</p>
+          </div>
+          <div class="stat-item">
+            <h4><i data-lucide="shield" class="text-cyan"></i> 7-in-1</h4>
+            <p>Hardware Protection</p>
+          </div>
+          <div class="stat-item">
+            <h4><i data-lucide="cpu" class="text-cyan"></i> ESP32</h4>
+            <p>Dual-Core IoT Controller</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-preview-card">
+        <div class="preview-badge-row">
+          <span class="status-pill active"><i data-lucide="check-circle"></i> LIVE DEMO READY</span>
+          <span class="font-mono text-cyan" style="font-size:0.8rem;">STATION ID #SG-01</span>
+        </div>
+        <h3 style="font-size:1.35rem;margin-bottom:0.5rem;">SmartGuard EV Charging Pod</h3>
+        <p style="font-size:0.85rem;margin-bottom:1.25rem;">
+          Real-time interactive 3D model with realistic materials, dynamic screen texture, flexible cable mechanics, and connected electric scooter.
+        </p>
+        <div class="hero-card-specs">
+          <div class="spec-box">
+            <span class="label">CABLE SYSTEM</span>
+            <span class="val text-neon"><i data-lucide="rotate-ccw"></i> AUTO-RETRACT</span>
+          </div>
+          <div class="spec-box">
+            <span class="label">SECURITY SENSOR</span>
+            <span class="val text-cyan"><i data-lucide="lock"></i> ANTI-THEFT</span>
+          </div>
+          <div class="spec-box">
+            <span class="label">THERMAL SAFETY</span>
+            <span class="val text-warning"><i data-lucide="thermometer"></i> CUTOFF</span>
+          </div>
+          <div class="spec-box">
+            <span class="label">ISOLATION RELAY</span>
+            <span class="val text-neon"><i data-lucide="shield-check"></i> FAIL-SAFE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. INTERACTIVE 3D VIEWER SECTION -->
+  <section id="viewer" class="section viewer-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Interactive 3D Experience</span>
+        <h2 class="section-title">Complete 3D Charging Station & Electric Scooter</h2>
+        <p class="section-desc">
+          Inspect every engineering component in realistic 3D. Rotate, zoom, switch camera presets, simulate day/night lighting, and trigger weather conditions. Click any component for technical teardowns.
+        </p>
+      </div>
+
+      <div class="viewer-wrapper">
+        <div id="canvas-container"></div>
+
+        <!-- 3D Toolbar -->
+        <div class="viewer-toolbar">
+          <div class="toolbar-group">
+            <button class="tb-btn active" onclick="window.SmartGuardApp.setCameraPreset('default')"><i data-lucide="eye"></i> Hero View</button>
+            <button class="tb-btn" onclick="window.SmartGuardApp.setCameraPreset('front')">Front</button>
+            <button class="tb-btn" onclick="window.SmartGuardApp.setCameraPreset('rear')">Rear</button>
+            <button class="tb-btn" onclick="window.SmartGuardApp.setCameraPreset('left')">Left</button>
+            <button class="tb-btn" onclick="window.SmartGuardApp.setCameraPreset('right')">Right</button>
+            <button class="tb-btn" onclick="window.SmartGuardApp.setCameraPreset('top')">Top</button>
+            <button class="tb-btn" onclick="window.SmartGuardApp.setCameraPreset('screen')"><i data-lucide="monitor"></i> Touchscreen</button>
+            <button class="tb-btn" onclick="window.SmartGuardApp.setCameraPreset('scooter')"><i data-lucide="bike"></i> Scooter</button>
+            <button class="tb-btn" onclick="window.SmartGuardApp.setCameraPreset('reel')"><i data-lucide="rotate-cw"></i> Reel</button>
+          </div>
+
+          <div class="toolbar-group">
+            <button id="btn-weather-clear" class="tb-btn active" onclick="window.SmartGuardApp.setWeather('CLEAR')"><i data-lucide="sun"></i> Clear</button>
+            <button id="btn-weather-rain" class="tb-btn" onclick="window.SmartGuardApp.setWeather('RAIN')"><i data-lucide="cloud-rain"></i> Rain (IP65)</button>
+            <button id="btn-weather-dust" class="tb-btn" onclick="window.SmartGuardApp.setWeather('DUST')"><i data-lucide="wind"></i> Dust</button>
+          </div>
+        </div>
+
+        <!-- Floating HUD Overlay -->
+        <div class="viewer-hud">
+          <div class="hud-item">
+            <span class="hud-label"><i data-lucide="activity"></i> STATUS</span>
+            <span id="dash-charge-status" class="hud-val text-neon">CONNECTED</span>
+          </div>
+          <div class="hud-item">
+            <span class="hud-label"><i data-lucide="battery-charging"></i> BATTERY</span>
+            <span id="dash-battery-val" class="hud-val text-cyan">78%</span>
+          </div>
+          <div class="hud-item">
+            <span class="hud-label"><i data-lucide="zap"></i> POWER</span>
+            <span id="dash-power-val" class="hud-val">0.00 kW</span>
+          </div>
+          <div class="hud-item">
+            <span class="hud-label"><i data-lucide="thermometer"></i> TEMP</span>
+            <span id="dash-temp-val" class="hud-val text-neon">34.2 °C</span>
+          </div>
+          <div style="display:flex;gap:0.5rem;align-items:center;">
+            <button class="btn btn-sm btn-primary" onclick="window.SmartGuardApp.startCharging()"><i data-lucide="play"></i> START CHARGE</button>
+            <button class="btn btn-sm btn-outline-cyan" onclick="window.SmartGuardApp.stopCharging()"><i data-lucide="square"></i> STOP</button>
+          </div>
+        </div>
+
+        <div class="viewer-hint">
+          🖱️ Left Drag: Rotate • Scroll: Zoom • Right Drag: Pan • Click Mesh: Inspect Specs
+        </div>
+
+        <!-- Component Detail Inspector Modal -->
+        <div id="component-modal" class="component-modal">
+          <div class="modal-header">
+            <h4 id="comp-modal-title" class="modal-title">Component Inspector</h4>
+            <button class="btn-icon-clear" onclick="window.SmartGuardApp.closeComponentModal()">✕</button>
+          </div>
+          <div class="modal-body">
+            <p id="comp-modal-purpose" style="color:var(--metallic-silver);">Click any part of the station or scooter to inspect its engineering purpose.</p>
+            <div id="comp-modal-specs" class="modal-specs-box">Technical specifications will appear here.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. MANDATORY SEVEN-IN-ONE PROTECTION SECTION -->
+  <section id="features" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Safety Engineering</span>
+        <h2 class="section-title">Mandatory Seven-in-One Protection System</h2>
+        <p class="section-desc">
+          Every protective subsystem is physically built into the 3D model, integrated into the reactive state machine, and testable via live simulation controls below.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <!-- FEATURE 1: CABLE RETRACTION -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-card-header">
+              <span class="feat-num"><i data-lucide="rotate-ccw"></i> FEATURE 01</span>
+              <span id="feat-cable-state" class="status-pill success">CONNECTED</span>
+            </div>
+            <h3 class="feature-title">Automatic Cable Retraction</h3>
+            <p class="feature-desc">
+              Integrated motorized reel with continuous tension feedback. Eliminates ground tripping hazards, water ponding contact, and cable wear by automatically rewinding the 5-meter heavy-duty cable after disconnect.
+            </p>
+          </div>
+          <div class="feature-interactive-box">
+            <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
+              <button class="btn btn-sm btn-primary" style="flex:1;" onclick="window.SmartGuardApp.extendCable()"><i data-lucide="rotate-cw"></i> EXTEND CABLE</button>
+              <button class="btn btn-sm btn-outline-cyan" style="flex:1;" onclick="window.SmartGuardApp.retractCable()"><i data-lucide="rotate-ccw"></i> RETRACT CABLE</button>
+            </div>
+            <span class="font-mono text-silver" style="font-size:0.75rem;">Rotating 3D reel with Catmull-Rom spline tension curve.</span>
+          </div>
+        </div>
+
+        <!-- FEATURE 2: CABLE THEFT DETECTION -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-card-header">
+              <span class="feat-num"><i data-lucide="shield-alert"></i> FEATURE 02</span>
+              <span id="feat-theft-state" class="status-pill success">SECURE</span>
+            </div>
+            <h3 class="feature-title">Cable Theft & Tampering Detection</h3>
+            <p class="feature-desc">
+              Continuous electrical continuity pilot loop coupled with strain-gauge sensors inside the locking collar. Any unauthorized cut or forced pull triggers an instant audible siren, flashes hazard red beacon, and trips isolation relays.
+            </p>
+          </div>
+          <div class="feature-interactive-box">
+            <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
+              <button class="btn btn-sm btn-danger" style="flex:1;" onclick="window.SmartGuardApp.simulateCableTheft()"><i data-lucide="alert-triangle"></i> SIMULATE THEFT</button>
+              <button class="btn btn-sm btn-outline-cyan" style="flex:1;" onclick="window.SmartGuardApp.disarmTheft()"><i data-lucide="shield-check"></i> DISARM / RESET</button>
+            </div>
+            <span class="font-mono text-silver" style="font-size:0.75rem;">Activates flashing red LED, alarm siren and remote alert.</span>
+          </div>
+        </div>
+
+        <!-- FEATURE 3: TEMPERATURE MONITORING -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-card-header">
+              <span class="feat-num"><i data-lucide="thermometer"></i> FEATURE 03</span>
+              <span id="feat-temp-badge" class="status-pill success">NORMAL</span>
+            </div>
+            <h3 class="feature-title">Internal Temperature Monitoring</h3>
+            <p class="feature-desc">
+              Precision thermistors monitor internal power contactors and cable housing. Normal (&lt;45°C), Warning (45-65°C: auxiliary cooling fan), and Critical (&gt;65°C: immediate safe charging cutoff and remote alarm).
+            </p>
+          </div>
+          <div class="feature-interactive-box">
+            <div class="slider-container">
+              <div class="slider-labels">
+                <span>SIMULATED TEMP:</span>
+                <span id="sim-temp-display" class="text-cyan font-mono" style="font-weight:700;">34.2°C</span>
+              </div>
+              <input type="range" id="sim-temp-slider" min="20" max="85" step="0.5" value="34.2" />
+              <div class="slider-labels">
+                <span>20°C (Cold)</span>
+                <span>45°C (Warn)</span>
+                <span>65°C+ (Cutoff)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FEATURE 4: AUTOMATIC FAULT DETECTION -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-card-header">
+              <span class="feat-num"><i data-lucide="alert-triangle"></i> FEATURE 04</span>
+              <span id="feat-fault-badge" class="status-pill success">NO FAULTS</span>
+            </div>
+            <h3 class="feature-title">Automatic 6-Fault Electrical Detection</h3>
+            <p class="feature-desc">
+              Comprehensive hardware trip monitoring for Overcurrent, Overvoltage, Undervoltage, Short Circuit, Earth Leakage (RCD 30mA), and Abnormal Temperature with physical contactor isolation.
+            </p>
+          </div>
+          <div class="feature-interactive-box">
+            <div class="fault-btn-grid">
+              <button class="btn-fault" onclick="window.SmartGuardApp.triggerFault('overcurrent')">Overcurrent</button>
+              <button class="btn-fault" onclick="window.SmartGuardApp.triggerFault('overvoltage')">Overvoltage</button>
+              <button class="btn-fault" onclick="window.SmartGuardApp.triggerFault('undervoltage')">Undervoltage</button>
+              <button class="btn-fault" onclick="window.SmartGuardApp.triggerFault('shortcircuit')">Short Circuit</button>
+              <button class="btn-fault" onclick="window.SmartGuardApp.triggerFault('leakage')">Earth Leakage</button>
+              <button class="btn-fault" onclick="window.SmartGuardApp.triggerFault('abnormaltemp')">Thermal Breaker</button>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span id="feat-relay-badge" class="status-pill success">RELAY: CLOSED</span>
+              <button class="btn btn-sm btn-outline-cyan" onclick="window.SmartGuardApp.clearFault()"><i data-lucide="rotate-ccw"></i> RESET RELAYS</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- FEATURE 5: WATER AND DUST PROTECTION -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-card-header">
+              <span class="feat-num"><i data-lucide="cloud-rain"></i> FEATURE 05</span>
+              <span class="status-pill active">IP65 DESIGN TARGET</span>
+            </div>
+            <h3 class="feature-title">Weatherproof Enclosure & Canopy</h3>
+            <p class="feature-desc">
+              Dual-layer silicone rubber gaskets, sloped rain-deflector canopy, sealed touchscreen bezel, and protected downward cable entry designed to achieve IP65 ingress protection against heavy monsoon rain and dust.
+            </p>
+          </div>
+          <div class="feature-interactive-box">
+            <span class="font-mono text-silver" style="font-size:0.75rem;display:block;margin-bottom:0.4rem;">LIVE WEATHER SIMULATION IN 3D:</span>
+            <div class="weather-btn-group">
+              <button class="btn btn-sm btn-outline-cyan" onclick="window.SmartGuardApp.setWeather('CLEAR')"><i data-lucide="sun"></i> Clear</button>
+              <button class="btn btn-sm btn-cyan" onclick="window.SmartGuardApp.setWeather('RAIN')"><i data-lucide="cloud-rain"></i> Rain Jet Sim</button>
+              <button class="btn btn-sm btn-outline-cyan" onclick="window.SmartGuardApp.setWeather('DUST')"><i data-lucide="wind"></i> Dust Wind</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- FEATURE 6: REAL-TIME CHARGING DISPLAY -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-card-header">
+              <span class="feat-num"><i data-lucide="monitor"></i> FEATURE 06</span>
+              <span class="status-pill success">DYNAMIC HUD SYNC</span>
+            </div>
+            <h3 class="feature-title">Physical 3D Touchscreen Display</h3>
+            <p class="feature-desc">
+              10.1-inch high-contrast sunlight-readable digital display rendered as a dynamic canvas texture directly on the 3D enclosure, displaying live battery percentage, 230V, 16A, 3.6 kW, duration, and safety status.
+            </p>
+          </div>
+          <div class="feature-interactive-box">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span class="font-mono text-silver" style="font-size:0.8rem;">Synced 1:1 with 3D model glass screen.</span>
+              <button class="btn btn-sm btn-outline-cyan" onclick="window.SmartGuardApp.setCameraPreset('screen')"><i data-lucide="eye"></i> ZOOM TO SCREEN</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- FEATURE 7: REMOTE MAINTENANCE ALERTS -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-card-header">
+              <span class="feat-num"><i data-lucide="radio"></i> FEATURE 07</span>
+              <span class="status-pill active">ESP32 IoT TELEMETRY</span>
+            </div>
+            <h3 class="feature-title">Remote Operator Maintenance Alerts</h3>
+            <p class="feature-desc">
+              Centralized remote dashboard streaming live station health, charging sessions, tamper events, thermal warnings, and fault diagnostics with operator acknowledge and clear capabilities.
+            </p>
+          </div>
+          <div class="feature-interactive-box">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span class="font-mono text-silver" style="font-size:0.8rem;">Simulate sample alerts or drill tests.</span>
+              <a href="#dashboard" class="btn btn-sm btn-primary"><i data-lucide="radio"></i> VIEW OPERATOR DASHBOARD</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. EXPLODED ENGINEERING VIEW SECTION -->
+  <section id="exploded" class="section exploded-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Engineering Architecture</span>
+        <h2 class="section-title">Exploded 3D Component Teardown</h2>
+        <p class="section-desc">
+          Smoothly separate the 8 precision-engineered physical modules in real 3D space with connecting guide rays, component labels, and detailed technical specifications.
+        </p>
+      </div>
+
+      <div class="exploded-controls-row">
+        <button class="btn btn-primary" onclick="window.SmartGuardApp.explodeView()"><i data-lucide="layers"></i> EXPLODE COMPONENTS</button>
+        <button class="btn btn-cyan" onclick="window.SmartGuardApp.assembleView()"><i data-lucide="package"></i> ASSEMBLE ENCLOSURE</button>
+        <button class="btn btn-outline-cyan" onclick="window.SmartGuardApp.resetExplodedView()"><i data-lucide="rotate-ccw"></i> RESET HERO VIEW</button>
+      </div>
+
+      <div class="exploded-cards-grid">
+        <div class="exploded-card">
+          <h4>01. Top Canopy</h4>
+          <p>Aerodynamic composite rain deflector with 15° water-shed angle.</p>
+          <span class="spec-tag">UV-Stabilized ABS Shell</span>
+        </div>
+        <div class="exploded-card">
+          <h4>02. LED Module</h4>
+          <p>360° visual status dome & horizontal daylight-visible light bar.</p>
+          <span class="spec-tag">RGB WS2812B Array</span>
+        </div>
+        <div class="exploded-card">
+          <h4>03. Touchscreen Display</h4>
+          <p>Sunlight-readable LCD with 4mm toughened anti-glare tempered glass.</p>
+          <span class="spec-tag">10.1" 1000-nit TFT Panel</span>
+        </div>
+        <div class="exploded-card">
+          <h4>04. Cable Reel</h4>
+          <p>Motorized internal rewind drum with tension governor and magnetic lock.</p>
+          <span class="spec-tag">BLDC Motor & 5.0m H07RN-F</span>
+        </div>
+        <div class="exploded-card">
+          <h4>05. Sensor Node</h4>
+          <p>Thermistor heat exchanger probe & anti-tamper motion detection PCB.</p>
+          <span class="spec-tag">NTC 10K & 3-Axis Gyro</span>
+        </div>
+        <div class="exploded-card">
+          <h4>06. Protection Bay</h4>
+          <p>Dual-pole MCB, surge arrester (SPD), 30mA RCD, and isolation relays.</p>
+          <span class="spec-tag">32A MCB / 40kA Type-2 SPD</span>
+        </div>
+        <div class="exploded-card">
+          <h4>07. Main Enclosure</h4>
+          <p>Dual-layer corrosion-proof metallic silver chassis with IP65 seals.</p>
+          <span class="spec-tag">Al-Mg Alloy / Louvered Vents</span>
+        </div>
+        <div class="exploded-card">
+          <h4>08. Base Unit</h4>
+          <p>Heavy-duty structural plinth with 4 galvanized M16 anchor bolts.</p>
+          <span class="spec-tag">M16 Foundation Plinth</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. HOW IT WORKS / 5-STEP WORKFLOW -->
+  <section id="workflow" class="section workflow-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Operation Workflow</span>
+        <h2 class="section-title">How SmartGuard EV Works</h2>
+        <p class="section-desc">
+          Follow the automated charging and protection sequence from vehicle arrival to cable retraction. Click any step or run the auto-play walkthrough.
+        </p>
+      </div>
+
+      <div class="workflow-stepper">
+        <div id="workflow-step-1" class="step-box active" onclick="window.SmartGuardApp.goToStep(1)">
+          <div class="step-badge">STEP 01</div>
+          <h4><i data-lucide="map-pin"></i> Park & Connect</h4>
+          <p style="font-size:0.8rem;color:var(--metallic-silver);">Scooter arrives in designated EV parking bay.</p>
+        </div>
+        <div id="workflow-step-2" class="step-box" onclick="window.SmartGuardApp.goToStep(2)">
+          <div class="step-badge">STEP 02</div>
+          <h4><i data-lucide="plug"></i> Start Charging</h4>
+          <p style="font-size:0.8rem;color:var(--metallic-silver);">Cable extends and locks into scooter charging port.</p>
+        </div>
+        <div id="workflow-step-3" class="step-box" onclick="window.SmartGuardApp.goToStep(3)">
+          <div class="step-badge">STEP 03</div>
+          <h4><i data-lucide="shield-check"></i> Monitor & Protect</h4>
+          <p style="font-size:0.8rem;color:var(--metallic-silver);">7-in-1 safety subsystems verify parameters.</p>
+        </div>
+        <div id="workflow-step-4" class="step-box" onclick="window.SmartGuardApp.goToStep(4)">
+          <div class="step-badge">STEP 04</div>
+          <h4><i data-lucide="radio"></i> Receive Alerts</h4>
+          <p style="font-size:0.8rem;color:var(--metallic-silver);">Remote operator dashboard logs telemetry.</p>
+        </div>
+        <div id="workflow-step-5" class="step-box" onclick="window.SmartGuardApp.goToStep(5)">
+          <div class="step-badge">STEP 05</div>
+          <h4><i data-lucide="rotate-ccw"></i> Safe Return</h4>
+          <p style="font-size:0.8rem;color:var(--metallic-silver);">Charge finishes, cable retracts automatically.</p>
+        </div>
+      </div>
+
+      <div class="workflow-detail-box">
+        <div class="workflow-detail-info">
+          <span id="workflow-active-num" class="status-pill active" style="margin-bottom:0.75rem;">STEP 01</span>
+          <h3 id="workflow-active-title" style="font-size:1.5rem;margin-bottom:0.75rem;">Park & Connect Handshake</h3>
+          <p id="workflow-active-desc" style="font-size:0.95rem;color:var(--metallic-silver);line-height:1.6;">
+            Electric scooter enters designated SmartGuard EV parking bay. Ultrasonic sensors detect vehicle presence and prepare charging pilot line.
+          </p>
+        </div>
+        <div>
+          <button id="btn-workflow-autoplay" class="btn btn-outline-cyan" onclick="window.SmartGuardApp.toggleAutoPlayWorkflow()"><i data-lucide="play"></i> Auto-Play Walkthrough</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. LIVE CHARGING SIMULATION BENCH -->
+  <section id="simulation" class="section simulation-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Interactive Test Bench</span>
+        <h2 class="section-title">Live Charging Simulation</h2>
+        <p class="section-desc">
+          Operate the full EV charging state machine. Control scooter connection, cable deployment, charging cycles, and observe simulated electrical metrics synchronized across all views.
+        </p>
+      </div>
+
+      <div class="simulation-panel">
+        <div class="sim-header-row">
+          <div>
+            <h3 style="font-size:1.35rem;margin-bottom:0.25rem;">Charging Controller Panel</h3>
+            <span class="font-mono text-silver" style="font-size:0.8rem;">CONTROL PROTOCOL: MODE-3 PILOT PWM (SIMULATED)</span>
+          </div>
+          <div>
+            <span class="dash-disclaimer"><i data-lucide="alert-triangle"></i> SIMULATED DEMONSTRATION ONLY – NOT REAL MAINS HARDWARE</span>
+          </div>
+        </div>
+
+        <div class="sim-controls-grid">
+          <button id="btn-sim-connect" class="btn btn-outline-cyan" onclick="window.SmartGuardApp.connectScooter()"><i data-lucide="plug"></i> Connect Scooter</button>
+          <button id="btn-sim-disconnect" class="btn btn-outline-danger" onclick="window.SmartGuardApp.disconnectScooter()"><i data-lucide="square"></i> Disconnect Scooter</button>
+          <button id="btn-sim-extend" class="btn btn-outline-cyan" onclick="window.SmartGuardApp.extendCable()"><i data-lucide="rotate-cw"></i> Extend Cable</button>
+          <button id="btn-sim-retract" class="btn btn-outline-cyan" onclick="window.SmartGuardApp.retractCable()"><i data-lucide="rotate-ccw"></i> Retract Cable</button>
+
+          <button id="btn-sim-start" class="btn btn-primary" onclick="window.SmartGuardApp.startCharging()"><i data-lucide="play"></i> Start Charging</button>
+          <button id="btn-sim-pause" class="btn btn-outline-cyan" onclick="window.SmartGuardApp.pauseCharging()"><i data-lucide="pause"></i> Pause Charging</button>
+          <button id="btn-sim-resume" class="btn btn-outline-cyan" onclick="window.SmartGuardApp.resumeCharging()"><i data-lucide="play"></i> Resume Charging</button>
+          <button id="btn-sim-stop" class="btn btn-danger" onclick="window.SmartGuardApp.stopCharging()"><i data-lucide="square"></i> Stop Charging</button>
+        </div>
+
+        <div class="sim-metrics-grid">
+          <div class="sim-metric-card">
+            <span class="label">VOLTAGE</span>
+            <span id="dash-voltage-val" class="val text-cyan">230 V</span>
+          </div>
+          <div class="sim-metric-card">
+            <span class="label">CURRENT</span>
+            <span id="dash-current-val" class="val text-neon">0.0 A</span>
+          </div>
+          <div class="sim-metric-card">
+            <span class="label">POWER</span>
+            <span class="val text-pure-white" id="dash-power-val-2">3.6 kW Max</span>
+          </div>
+          <div class="sim-metric-card">
+            <span class="label">ENERGY DELIVERED</span>
+            <span id="dash-energy-val" class="val text-pure-white">2.45 kWh</span>
+          </div>
+          <div class="sim-metric-card">
+            <span class="label">EST. RANGE ADDED</span>
+            <span id="dash-range-val" class="val text-neon">+18 km</span>
+          </div>
+          <div class="sim-metric-card">
+            <span class="label">ISOLATION RELAY</span>
+            <span id="dash-relay-val" class="val text-neon">CLOSED</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. REMOTE MONITORING DASHBOARD -->
+  <section id="dashboard" class="section dashboard-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Remote Operator Interface</span>
+        <h2 class="section-title">IoT Telemetry & Maintenance Dashboard</h2>
+        <p class="section-desc">
+          Centralized command center for fleet and facility operators. Monitors live operational health, telemetry graphs, and real-time maintenance alert logs.
+        </p>
+      </div>
+
+      <!-- KPI Cards Row -->
+      <div class="dash-kpi-grid">
+        <div class="dash-kpi-card">
+          <span class="kpi-label"><i data-lucide="activity"></i> STATION STATUS</span>
+          <div id="dash-station-status"><span class="status-pill active">ONLINE (ESP32 IoT)</span></div>
+        </div>
+        <div class="dash-kpi-card">
+          <span class="kpi-label"><i data-lucide="thermometer"></i> OPERATING TEMP</span>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span id="dash-temp-val-2" class="kpi-val text-neon">34.2 °C</span>
+            <span id="dash-temp-badge" class="status-pill success">NORMAL</span>
+          </div>
+        </div>
+        <div class="dash-kpi-card">
+          <span class="kpi-label"><i data-lucide="lock"></i> CABLE LOCK</span>
+          <div id="dash-cable-sec"><span class="status-pill success">SECURE (LOCKED)</span></div>
+        </div>
+        <div class="dash-kpi-card">
+          <span class="kpi-label"><i data-lucide="shield-check"></i> PROTECTION BAY</span>
+          <div id="dash-fault-kpi"><span class="status-pill success">6/6 NOMINAL</span></div>
+        </div>
+        <div class="dash-kpi-card">
+          <span class="kpi-label"><i data-lucide="radio"></i> CONNECTIVITY</span>
+          <span class="kpi-val text-cyan font-mono" style="font-size:1.1rem;">4G LTE / 99.9%</span>
+        </div>
+        <div class="dash-kpi-card">
+          <span class="kpi-label"><i data-lucide="cloud-rain"></i> WEATHER SEAL</span>
+          <span class="status-pill active">IP65 TARGET ACTIVE</span>
+        </div>
+      </div>
+
+      <!-- Live Graphs Row -->
+      <div class="dash-charts-grid">
+        <div class="chart-card">
+          <h4>INTERNAL TEMPERATURE PROFILE (°C)</h4>
+          <div class="chart-wrapper">
+            <canvas id="chart-temperature"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h4>CHARGING OUTPUT POWER (kW)</h4>
+          <div class="chart-wrapper">
+            <canvas id="chart-power"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h4>SCOOTER BATTERY CHARGE CURVE (%)</h4>
+          <div class="chart-wrapper">
+            <canvas id="chart-battery"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alert History & Simulator -->
+      <div class="dash-alerts-container">
+        <div class="alerts-header">
+          <div>
+            <h3 style="font-size:1.25rem;margin-bottom:0.25rem;"><i data-lucide="bell"></i> Active Maintenance Notifications</h3>
+            <span class="font-mono text-silver" style="font-size:0.75rem;">LIVE DISPATCHED TELEMETRY EVENTS (SIMULATED LOCAL EVENTS)</span>
+          </div>
+          <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+            <span class="font-mono text-silver" style="font-size:0.75rem;">Simulate:</span>
+            <button class="btn btn-sm btn-outline-danger" onclick="window.SmartGuardApp.simulateSampleAlert('tamper')"><i data-lucide="shield-alert"></i> Theft Alert</button>
+            <button class="btn btn-sm btn-outline-cyan" onclick="window.SmartGuardApp.simulateSampleAlert('high_temp')"><i data-lucide="thermometer"></i> Overheat</button>
+            <button class="btn btn-sm btn-outline-danger" onclick="window.SmartGuardApp.simulateSampleAlert('fault')"><i data-lucide="alert-triangle"></i> Fault</button>
+            <button class="btn btn-sm btn-outline-cyan" onclick="window.SmartGuardApp.simulateSampleAlert('maintenance')"><i data-lucide="wrench"></i> Maint. Due</button>
+            <button class="btn btn-sm btn-outline-cyan" onclick="window.SmartGuardApp.clearAllAlerts()"><i data-lucide="trash-2"></i> Clear All</button>
+          </div>
+        </div>
+
+        <div id="dash-alerts-feed" class="alerts-feed">
+          <!-- Dynamically populated by dashboard.js -->
+        </div>
+
+        <!-- Charging Session History -->
+        <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--bg-card-border);">
+          <h4 style="font-size:1.1rem;color:var(--cyan-blue);margin-bottom:0.5rem;"><i data-lucide="clock"></i> Recent Charging Session Logs</h4>
+          <div style="overflow-x:auto;">
+            <table class="session-history-table">
+              <thead>
+                <tr>
+                  <th>Session ID</th>
+                  <th>Vehicle Model</th>
+                  <th>Timestamp</th>
+                  <th>Duration</th>
+                  <th>Energy</th>
+                  <th>Est. Cost</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-cyan">#SES-8821</td>
+                  <td>Ather 450X (3.7 kWh)</td>
+                  <td>Today, 18:14</td>
+                  <td>42 min</td>
+                  <td>2.84 kWh</td>
+                  <td>$0.42</td>
+                  <td><span class="status-pill success">COMPLETED</span></td>
+                </tr>
+                <tr>
+                  <td class="text-cyan">#SES-8820</td>
+                  <td>Ola S1 Pro (4.0 kWh)</td>
+                  <td>Today, 16:02</td>
+                  <td>55 min</td>
+                  <td>3.62 kWh</td>
+                  <td>$0.54</td>
+                  <td><span class="status-pill success">COMPLETED</span></td>
+                </tr>
+                <tr>
+                  <td class="text-cyan">#SES-8819</td>
+                  <td>TVS iQube (3.0 kWh)</td>
+                  <td>Today, 13:40</td>
+                  <td>35 min</td>
+                  <td>2.10 kWh</td>
+                  <td>$0.31</td>
+                  <td><span class="status-pill success">COMPLETED</span></td>
+                </tr>
+                <tr>
+                  <td class="text-cyan">#SES-8818</td>
+                  <td>Gogoro 2 Series</td>
+                  <td>Today, 10:15</td>
+                  <td>48 min</td>
+                  <td>3.15 kWh</td>
+                  <td>$0.47</td>
+                  <td><span class="status-pill success">COMPLETED</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. TECHNICAL SPECIFICATIONS SECTION -->
+  <section id="specs" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Engineering Specifications</span>
+        <h2 class="section-title">Proposed Technical Specifications</h2>
+        <p class="section-desc">
+          Proposed design parameters for the SmartGuard EV prototype charging infrastructure. All electrical ratings represent proposed prototype values.
+        </p>
+      </div>
+
+      <div class="specs-table-wrapper">
+        <table class="specs-table">
+          <thead>
+            <tr>
+              <th>Subsystem</th>
+              <th>Parameter</th>
+              <th>Proposed Design Configuration</th>
+              <th>Standards Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="param-name">Input Power</td>
+              <td>Nominal AC Voltage</td>
+              <td class="text-neon">230V AC ±10%, 50/60 Hz Single Phase</td>
+              <td>IEC 60038 Grid Standard</td>
+            </tr>
+            <tr>
+              <td class="param-name">Output Rating</td>
+              <td>Continuous Charging Current</td>
+              <td class="text-cyan">16A Continuous (3.68 kW Nominal Power)</td>
+              <td>IEC 61851-1 Mode 3</td>
+            </tr>
+            <tr>
+              <td class="param-name">Enclosure Protection</td>
+              <td>Ingress Protection Target</td>
+              <td class="text-neon">IP65 (Dust-tight and protected against water jets)</td>
+              <td>IEC 60529 Design Target</td>
+            </tr>
+            <tr>
+              <td class="param-name">Impact Resistance</td>
+              <td>Chassis Armor Rating</td>
+              <td>IK10 Vandal-Resistant Enclosure</td>
+              <td>EN 62262 Heavy-Duty Spec</td>
+            </tr>
+            <tr>
+              <td class="param-name">IoT Controller</td>
+              <td>Embedded Processor</td>
+              <td class="text-cyan">Dual-Core ESP32 240 MHz, FreeRTOS Embedded</td>
+              <td>Espressif IoT Architecture</td>
+            </tr>
+            <tr>
+              <td class="param-name">Connectivity</td>
+              <td>Wireless Protocols</td>
+              <td>4G LTE-M / Wi-Fi 802.11 b/g/n / BLE 5.0</td>
+              <td>OCPP 1.6J / 2.0.1 Ready</td>
+            </tr>
+            <tr>
+              <td class="param-name">Cable Mechanism</td>
+              <td>Automated Retraction</td>
+              <td class="text-neon">5.0m Motorized Drum with Constant-Tension Governor</td>
+              <td>H07RN-F 3G2.5 + 2x0.75 mm²</td>
+            </tr>
+            <tr>
+              <td class="param-name">Security Protection</td>
+              <td>Anti-Theft Detection</td>
+              <td class="text-warning">Continuity Pilot Loop & Strain Sensor with Siren</td>
+              <td>Proprietary Active Interlock</td>
+            </tr>
+            <tr>
+              <td class="param-name">Thermal Protection</td>
+              <td>Temperature Cutoff</td>
+              <td class="text-danger">&gt;65°C Automatic Disconnect with Warning Light</td>
+              <td>IEC 60364-4-42 Fire Safety</td>
+            </tr>
+            <tr>
+              <td class="param-name">Electrical Protection</td>
+              <td>Integrated Fault Detection</td>
+              <td>Overcurrent, Over/Undervoltage, Short Circuit, RCD 30mA</td>
+              <td>IEC 60947-2 / Type B RCD</td>
+            </tr>
+            <tr>
+              <td class="param-name">User Display</td>
+              <td>Touchscreen Interface</td>
+              <td>10.1" 1000-nit Sunlight-Readable TFT LCD Glass Panel</td>
+              <td>IP65 Front Bezel Gasket</td>
+            </tr>
+            <tr>
+              <td class="param-name">Target Application</td>
+              <td>Vehicle Compatibility</td>
+              <td class="text-neon">Electric Two-Wheelers (Scooters, Motorcycles, Mopeds)</td>
+              <td>Universal 2-Wheeler Inlets</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. TARGET APPLICATIONS SECTION -->
+  <section class="section" style="background:var(--bg-secondary);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Deployment Environments</span>
+        <h2 class="section-title">Designed for Diverse Urban Mobility Hubs</h2>
+        <p class="section-desc">
+          SmartGuard EV’s weatherproof IP65 design and automated cable management make it ideal for high-density, unattended outdoor installations.
+        </p>
+      </div>
+
+      <div class="applications-grid">
+        <div class="app-card">
+          <div class="app-icon">🏢</div>
+          <h4>Apartment Complexes</h4>
+          <p>Provides organized, tangle-free outdoor charging bays for residential gated communities and tower parking lots.</p>
+        </div>
+        <div class="app-card">
+          <div class="app-icon">🎓</div>
+          <h4>Universities & Colleges</h4>
+          <p>Safe student charging infrastructure with anti-tamper cable locking and tamper siren deterrents.</p>
+        </div>
+        <div class="app-card">
+          <div class="app-icon">💼</div>
+          <h4>Tech Parks & Offices</h4>
+          <p>Convenient daytime charging for corporate workforces with cloud telemetry integration and RFID access.</p>
+        </div>
+        <div class="app-card">
+          <div class="app-icon">🛍️</div>
+          <h4>Shopping Malls & Retail</h4>
+          <p>Weatherproof outdoor charging pods for shoppers, increasing dwell time and customer satisfaction.</p>
+        </div>
+        <div class="app-card">
+          <div class="app-icon">🚇</div>
+          <h4>Metro & Transit Stations</h4>
+          <p>Robust, vandal-resistant last-mile mobility charging for electric commuter fleets and rental scooters.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. ABOUT SMARTGUARD EV & FOOTER -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">About The Project</span>
+        <h2 class="section-title">The SmartGuard EV Vision</h2>
+      </div>
+
+      <div class="about-box">
+        <p>
+          Electric two-wheelers represent the fastest-growing segment of global zero-emission urban transportation. However, outdoor charging infrastructure currently suffers from dangling cables that become tripping hazards, rain exposure risks, cable theft/vandalism, and lack of real-time thermal safety monitoring.
+        </p>
+        <p>
+          <strong>SmartGuard EV</strong> addresses these critical challenges through a holistic 7-in-1 industrial design. By pairing automated cable retraction with continuous thermal surveillance, anti-theft sensors, IP65 weatherproofing, and safe electrical isolation, SmartGuard EV delivers a robust, secure, and user-friendly charging experience for next-generation electric mobility.
+        </p>
+        <p style="color:var(--warning-amber);font-size:0.85rem;margin-bottom:0;">
+          * Note: This demonstration represents an interactive 3D engineering prototype built using HTML5, CSS3, JavaScript, Three.js, GSAP, and Chart.js. All metrics and fault responses are simulated in software.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p style="margin-bottom:0.5rem;font-weight:700;color:var(--pure-white);">SMARTGUARD EV – SMART, SECURE AND WEATHERPROOF ELECTRIC TWO-WHEELER CHARGING STATION</p>
+      <p style="color:var(--metallic-silver);font-size:0.75rem;">Charge Smart. Ride Confident. • Designed for Next-Generation Urban Clean Transportation • 2026</p>
+    </div>
+  </footer>
+
+</body>
+</html>
