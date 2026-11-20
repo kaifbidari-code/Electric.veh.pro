@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartGuard EV | Project Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #030b14;
+      --bg-card: #071a2a;
+      --neon-green: #39ff63;
+      --cyan: #00d9ff;
+      --silver: #bfc8d2;
+      --white: #ffffff;
+      --amber: #ffb020;
+      --red: #ff3030;
+      --font-sans: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-dark);
+      color: var(--white);
+      font-family: var(--font-sans);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+    }
+    .pres-header {
+      height: 56px;
+      background: rgba(7, 26, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 100;
+    }
+    .pres-logo {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--neon-green);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .pres-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .btn-ctrl {
+      background: rgba(3, 11, 20, 0.8);
+      border: 1px solid rgba(0, 217, 255, 0.3);
+      color: var(--cyan);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-ctrl:hover {
+      background: var(--cyan);
+      color: #000;
+      box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+    }
+    .slide-counter {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--silver);
+    }
+
+    /* Deck Container */
+    .deck-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(60px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 3rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    .slide-category {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--neon-green);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .slide-title {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+    .slide-subtitle {
+      font-size: 1.25rem;
+      color: var(--cyan);
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      border-radius: 12px;
+      padding: 1.75rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.6rem;
+      color: var(--white);
+    }
+    .card p {
+      font-size: 0.95rem;
+      color: var(--silver);
+      line-height: 1.6;
+    }
+    .card-border-green { border-color: var(--neon-green); }
+    .card-border-red { border-color: var(--red); }
+    .card-border-amber { border-color: var(--amber); }
+
+    .speaker-notes-panel {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(3, 11, 20, 0.95);
+      border-top: 1px solid var(--cyan);
+      padding: 1.25rem 3rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--silver);
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      z-index: 50;
+    }
+    .speaker-notes-panel.visible {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER CONTROLS -->
+  <header class="pres-header">
+    <div class="pres-logo">
+      <span>⚡ SMARTGUARD EV</span>
+      <span style="color:var(--silver);font-size:0.75rem;">| PRESENTATION DECK</span>
+    </div>
+    <div class="pres-controls">
+      <span id="slide-num" class="slide-counter">SLIDE 01 / 12</span>
+      <button class="btn-ctrl" onclick="prevSlide()">◀ Previous</button>
+      <button class="btn-ctrl" onclick="nextSlide()">Next ▶</button>
+      <button class="btn-ctrl" onclick="toggleNotes()">📝 Speaker Notes</button>
+      <a href="/" class="btn-ctrl" style="text-decoration:none;">🚀 3D Model</a>
+    </div>
+  </header>
+
+  <!-- DECK CONTAINER -->
+  <main class="deck-container">
+    <!-- SLIDE 1 -->
+    <section class="slide active" data-notes="Welcome everyone. Today I am presenting SmartGuard EV, an intelligent, secure, and weatherproof charging station specifically engineered for electric two-wheelers with automatic cable retraction and a 7-in-1 protection system.">
+      <div class="slide-category">NEXT-GENERATION ELECTRIC MOBILITY</div>
+      <h1 class="slide-title">SMARTGUARD EV</h1>
+      <p class="slide-subtitle">Smart, Secure and Weatherproof Electric Two-Wheeler Charging Station</p>
+      <p style="font-size:1.2rem;color:var(--silver);font-style:italic;margin-bottom:2.5rem;">"Charge Smart. Ride Confident."</p>
+      <div class="grid-4">
+        <div class="card card-border-green">
+          <div style="font-size:2rem;font-weight:800;color:var(--neon-green);font-family:var(--font-mono);">3.6 kW</div>
+          <p style="margin-top:0.3rem;">Fast-AC Charging (230V/16A)</p>
+        </div>
+        <div class="card">
+          <div style="font-size:2rem;font-weight:800;color:var(--cyan);font-family:var(--font-mono);">IP65</div>
+          <p style="margin-top:0.3rem;">All-Weather Design Target</p>
+        </div>
+        <div class="card">
+          <div style="font-size:2rem;font-weight:800;color:var(--neon-green);font-family:var(--font-mono);">7-in-1</div>
+          <p style="margin-top:0.3rem;">Hardware Protection System</p>
+        </div>
+        <div class="card">
+          <div style="font-size:2rem;font-weight:800;color:var(--amber);font-family:var(--font-mono);">ESP32</div>
+          <p style="margin-top:0.3rem;">Dual-Core IoT Edge Controller</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2 -->
+    <section class="slide" data-notes="Here is why we built SmartGuard EV. Current outdoor charging stations for electric two-wheelers suffer from 4 critical vulnerabilities: dangling cables that create tripping hazards, rain/monsoon water damage, cable theft and vandalism, and lack of active thermal cutoff.">
+      <div class="slide-category">INDUSTRY CHALLENGES</div>
+      <h2 class="slide-title">The Outdoor EV Charging Dilemma</h2>
+      <p class="slide-subtitle">Critical pain points facing unattended electric two-wheeler charging infrastructure.</p>
+      <div class="grid-2">
+        <div class="card card-border-red">
+          <h3 style="color:var(--red);">⚠️ Cable Clutter & Tripping Hazards</h3>
+          <p>Unmanaged cables lying on parking surfaces create serious pedestrian hazards and suffer continuous vehicle tyre crushing damage.</p>
+        </div>
+        <div class="card card-border-red">
+          <h3 style="color:var(--red);">🌧️ Monsoon Rain & Water Exposure</h3>
+          <p>Outdoor chargers face harsh water jets and dust ingress. Unsealed cables in standing water cause catastrophic insulation breakdowns.</p>
+        </div>
+        <div class="card card-border-red">
+          <h3 style="color:var(--red);">🔒 Cable Theft & Copper Vandalism</h3>
+          <p>Public chargers regularly suffer from severed cables and stolen copper lines without real-time tamper alarms or physical security latches.</p>
+        </div>
+        <div class="card card-border-red">
+          <h3 style="color:var(--red);">🔥 Contactor Thermal Buildup</h3>
+          <p>Continuous 16A current flow leads to internal thermal rise. Without pre-emptive cutoff, stations risk thermal runaway and equipment damage.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3 -->
+    <section class="slide" data-notes="To solve these 4 pain points, we engineered SmartGuard EV around 3 core technological pillars: motorized cable retraction, a 7-in-1 multi-hazard protection system, and an interactive 10.1-inch digital touchscreen with ESP32 IoT connectivity.">
+      <div class="slide-category">INNOVATION ARCHITECTURE</div>
+      <h2 class="slide-title">The SmartGuard EV Solution</h2>
+      <p class="slide-subtitle">A holistic industrial engineering design built specifically for electric two-wheelers.</p>
+      <div class="grid-3">
+        <div class="card card-border-green">
+          <div style="font-size:2rem;color:var(--neon-green);font-family:var(--font-mono);margin-bottom:0.5rem;">01</div>
+          <h3>Automated Cable Reel</h3>
+          <p>Internal motorized BLDC winding spool that automatically extends and rewinds 5m cable, keeping cables off the ground and dry.</p>
+        </div>
+        <div class="card" style="border-color:var(--cyan);">
+          <div style="font-size:2rem;color:var(--cyan);font-family:var(--font-mono);margin-bottom:0.5rem;">02</div>
+          <h3>7-in-1 Safety System</h3>
+          <p>Continuous hardware surveillance: anti-theft sensors, thermistor cutoff, 6-fault electrical monitoring, and IP65 weather enclosure.</p>
+        </div>
+        <div class="card card-border-amber">
+          <div style="font-size:2rem;color:var(--amber);font-family:var(--font-mono);margin-bottom:0.5rem;">03</div>
+          <h3>Connected IoT Telemetry</h3>
+          <p>Real-time 10.1" digital touchscreen mapped to 3D station, streaming live V, A, kW, and alerts to remote operator dashboard via 4G LTE/Wi-Fi.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4 -->
+    <section class="slide" data-notes="Here are the exact physical prototype dimensions and materials. The station stands 1.5 meters tall with a 550mm rain canopy and 500x400mm plinth anchored with 4 M16 bolts. Beside it, our 3D model includes a realistic electric scooter with a dynamic Catmull-Rom flexible cable.">
+      <div class="slide-category">3D CAD & PHYSICAL MODELING</div>
+      <h2 class="slide-title">Industrial Design & Proportions</h2>
+      <p class="slide-subtitle">Precision engineering dimensions, realistic materials, and paired electric scooter.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="color:var(--cyan);margin-bottom:1rem;">Charging Station Specifications</h3>
+          <p><strong>Total Height:</strong> 1500 mm (1.5 m)</p>
+          <p><strong>Main Enclosure:</strong> 1300 mm (H) × 450 mm (W) × 350 mm (D)</p>
+          <p><strong>Top Canopy:</strong> 550 mm × 450 mm with 15° water-shed slope</p>
+          <p><strong>Mounting Plinth:</strong> 500 mm × 400 mm with 4× Galvanized M16 Bolts</p>
+          <p><strong>Materials:</strong> Metallic Silver Al-Mg Alloy + Obsidian Gloss Black</p>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--neon-green);margin-bottom:1rem;">Paired Electric Scooter & Cable</h3>
+          <p><strong>Wheels & Hub:</strong> 12-inch rubber tyres, 5-spoke alloy rims, disc brakes, regen hub motor.</p>
+          <p><strong>Fairing:</strong> Aerodynamic apron with matrix LED headlight & Cyan DRL bar.</p>
+          <p><strong>Ergonomics:</strong> Dual-rider leatherette seat, footboard, handlebar controls, and mirrors.</p>
+          <p><strong>Flexible Cable:</strong> Real-time 3D Catmull-Rom spline connecting station reel to scooter port.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5 -->
+    <section class="slide" data-notes="Our application includes an interactive Exploded Engineering View. Clicking Explode separates 8 precision modules in real 3D space: Top canopy, LED beacon, touchscreen LCD, cable reel drum, sensor node, electrical protection bay, main enclosure, and base mounting plinth.">
+      <div class="slide-category">MODULAR SUB-ASSEMBLIES</div>
+      <h2 class="slide-title">Exploded Engineering Teardown</h2>
+      <p class="slide-subtitle">Smooth 3D separation into 8 precision-engineered modules with guide lines.</p>
+      <div class="grid-4">
+        <div class="card"><h4>01. Top Canopy</h4><p style="font-size:0.85rem;margin-top:0.4rem;">UV-stabilized ABS with rain deflector lip.</p></div>
+        <div class="card"><h4>02. LED Beacon</h4><p style="font-size:0.85rem;margin-top:0.4rem;">360° RGB WS2812B visual status dome.</p></div>
+        <div class="card"><h4>03. Touchscreen LCD</h4><p style="font-size:0.85rem;margin-top:0.4rem;">10.1" 1000-nit panel with 4mm tempered glass.</p></div>
+        <div class="card"><h4>04. Cable Reel Drum</h4><p style="font-size:0.85rem;margin-top:0.4rem;">BLDC motor & 5.0m H07RN-F cable spool.</p></div>
+        <div class="card"><h4>05. Sensor Node</h4><p style="font-size:0.85rem;margin-top:0.4rem;">NTC 10K thermistor & anti-tamper gyro PCB.</p></div>
+        <div class="card"><h4>06. Protection Bay</h4><p style="font-size:0.85rem;margin-top:0.4rem;">32A MCB, 40kA Type-2 SPD, and 30mA RCD.</p></div>
+        <div class="card"><h4>07. Main Enclosure</h4><p style="font-size:0.85rem;margin-top:0.4rem;">Metallic silver chassis with louvered vents.</p></div>
+        <div class="card"><h4>08. Base Unit</h4><p style="font-size:0.85rem;margin-top:0.4rem;">Structural plinth with 4× M16 anchor bolts.</p></div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6 -->
+    <section class="slide" data-notes="Now let's examine the Seven-in-One Protection System. Feature 1 is Automatic Cable Retraction with rotating 3D spool. Feature 2 is Cable Theft Detection which triggers a siren, red lights, and dispatches an alert. Feature 3 is Temperature Monitoring with automatic cutoff at 65°C.">
+      <div class="slide-category">SAFETY ENGINEERING</div>
+      <h2 class="slide-title">7-in-1 Protection System (Part 1)</h2>
+      <p class="slide-subtitle">Physical 3D implementation & simulated interactive responses.</p>
+      <div class="grid-3">
+        <div class="card card-border-green">
+          <div style="font-family:var(--font-mono);color:var(--neon-green);font-size:0.85rem;margin-bottom:0.5rem;">FEATURE 01</div>
+          <h3>Cable Retraction</h3>
+          <p>Motorized BLDC reel with constant tension governor. Automatically rewinds cable into housing, preventing trips and tyre crush damage.</p>
+        </div>
+        <div class="card card-border-red">
+          <div style="font-family:var(--font-mono);color:var(--red);font-size:0.85rem;margin-bottom:0.5rem;">FEATURE 02</div>
+          <h3>Theft & Tamper Alarm</h3>
+          <p>Continuity pilot loop and strain sensor. Unauthorized pull or cut activates hazard red beacon, audible siren, and trips safe isolation relays.</p>
+        </div>
+        <div class="card card-border-amber">
+          <div style="font-family:var(--font-mono);color:var(--amber);font-size:0.85rem;margin-bottom:0.5rem;">FEATURE 03</div>
+          <h3>Thermal Monitoring</h3>
+          <p>Dual NTC thermistors near contactors. Normal (&lt;45°C), Warning (45-65°C), and Critical (&gt;65°C) with automatic charging shutdown.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7 -->
+    <section class="slide" data-notes="Part 2 of the 7-in-1 system covers Feature 4: Automatic 6-Fault Electrical Detection including overcurrent and short circuit; Feature 5: IP65 water and dust protection with live 3D rain simulation; Feature 6: real-time 3D touchscreen display; and Feature 7: remote maintenance alerts.">
+      <div class="slide-category">SAFETY ENGINEERING</div>
+      <h2 class="slide-title">7-in-1 Protection System (Part 2)</h2>
+      <p class="slide-subtitle">Electrical trips, weather resistance, and IoT cloud notifications.</p>
+      <div class="grid-2">
+        <div class="card card-border-red">
+          <div style="font-family:var(--font-mono);color:var(--red);font-size:0.85rem;margin-bottom:0.3rem;">FEATURE 04</div>
+          <h3>6-Fault Electrical Detection</h3>
+          <p>Hardware monitoring for Overcurrent (24A), Overvoltage (270V), Undervoltage (180V), Short Circuit, 30mA Earth Leakage, and Thermal Breaker with relay isolation.</p>
+        </div>
+        <div class="card" style="border-color:var(--cyan);">
+          <div style="font-family:var(--font-mono);color:var(--cyan);font-size:0.85rem;margin-bottom:0.3rem;">FEATURE 05</div>
+          <h3>Water & Dust Protection (IP65)</h3>
+          <p>Silicone gaskets, sloped canopy deflector, sealed bezel, and downward cable outlet. Includes interactive 3D Rain and Dust storm simulations.</p>
+        </div>
+        <div class="card card-border-green">
+          <div style="font-family:var(--font-mono);color:var(--neon-green);font-size:0.85rem;margin-bottom:0.3rem;">FEATURE 06</div>
+          <h3>Real-Time 3D Touchscreen</h3>
+          <p>10.1" digital display mapped onto 3D station showing real-time battery %, V, A, kW, session timer, and operating states synced to state machine.</p>
+        </div>
+        <div class="card card-border-amber">
+          <div style="font-family:var(--font-mono);color:var(--amber);font-size:0.85rem;margin-bottom:0.3rem;">FEATURE 07</div>
+          <h3>Remote Maintenance Alerts</h3>
+          <p>ESP32 IoT cloud telemetry streaming live health, session history, and instant maintenance notifications with operator acknowledge and clear capabilities.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8 -->
+    <section class="slide" data-notes="Here is the complete 5-step operational workflow. Step 1: Park and connect handshake. Step 2: Extend cable and lock in scooter socket. Step 3: 7-in-1 protection system verifies safety. Step 4: Live telemetry streams to dashboard. Step 5: Charge completes and cable auto-retracts.">
+      <div class="slide-category">OPERATIONAL WORKFLOW</div>
+      <h2 class="slide-title">How SmartGuard EV Works</h2>
+      <p class="slide-subtitle">Automated 5-step charging sequence from vehicle arrival to cable retraction.</p>
+      <div class="grid-5">
+        <div class="card">
+          <div style="font-size:2rem;color:var(--neon-green);font-family:var(--font-mono);">01</div>
+          <h4 style="margin:0.5rem 0;">Park & Connect</h4>
+          <p style="font-size:0.85rem;">Scooter arrives at EV bay; ultrasonic sensors establish pilot readiness.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:2rem;color:var(--cyan);font-family:var(--font-mono);">02</div>
+          <h4 style="margin:0.5rem 0;">Extend & Lock</h4>
+          <p style="font-size:0.85rem;">Motorized reel unlocks; operator plugs in cable; magnetic lock engages.</p>
+        </div>
+        <div class="card card-border-green">
+          <div style="font-size:2rem;color:var(--neon-green);font-family:var(--font-mono);">03</div>
+          <h4 style="margin:0.5rem 0;">Monitor & Protect</h4>
+          <p style="font-size:0.85rem;">7-in-1 protection verifies safety parameters; 3.6kW charging starts.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:2rem;color:var(--cyan);font-family:var(--font-mono);">04</div>
+          <h4 style="margin:0.5rem 0;">Stream Telemetry</h4>
+          <p style="font-size:0.85rem;">ESP32 streams V, A, kW, battery %, and temp to operator dashboard.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:2rem;color:var(--amber);font-family:var(--font-mono);">05</div>
+          <h4 style="margin:0.5rem 0;">Safe Auto-Retract</h4>
+          <p style="font-size:0.85rem;">Battery hits 100%, contactors isolate safely, and cable auto-rewinds.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9 -->
+    <section class="slide" data-notes="Our operator dashboard integrates Chart.js for real-time visualization of internal temperature profiles, charging power delivery (kW), and scooter battery percentage. Operators also have access to proactive maintenance alert queues and session history logs.">
+      <div class="slide-category">OPERATOR INTERFACE</div>
+      <h2 class="slide-title">Remote IoT Monitoring Dashboard</h2>
+      <p class="slide-subtitle">Centralized telemetry graphs, fleet KPIs, and maintenance alert center.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="color:var(--cyan);margin-bottom:0.75rem;">📈 Real-Time Chart.js Graphs</h3>
+          <p><strong>Temperature Profile (°C):</strong> Real-time thermistor tracking with dynamic blue/amber/red thresholds.</p>
+          <p style="margin-top:0.5rem;"><strong>Power Profile (kW):</strong> Output power curve tracking nominal 3.68 kW delivery with grid fluctuations.</p>
+          <p style="margin-top:0.5rem;"><strong>Battery Curve (%):</strong> Cumulative state-of-charge progression over session time.</p>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--neon-green);margin-bottom:0.75rem;">🔔 Proactive Alert Management</h3>
+          <p><strong>Security Alerts:</strong> Instant notifications for cable tampering or strain latch movement.</p>
+          <p style="margin-top:0.5rem;"><strong>Thermal Shutdown:</strong> Emergency notification if contactors reach 65°C cutoff.</p>
+          <p style="margin-top:0.5rem;"><strong>Fault Code Logging:</strong> Diagnostic isolation records with operator Acknowledge and Clear workflows.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10 -->
+    <section class="slide" data-notes="Here are the proposed technical specifications: Input voltage 230V AC single phase, output current 16A continuous delivering 3.68 kW nominal power, IP65 design target, IK10 vandal resistance, ESP32 dual-core processor, and 5-meter auto-retracting H07RN-F cable.">
+      <div class="slide-category">ENGINEERING SPECIFICATIONS</div>
+      <h2 class="slide-title">Proposed Technical Specifications</h2>
+      <p class="slide-subtitle">Comprehensive design configuration and regulatory standards targets.</p>
+      <div class="grid-2">
+        <div class="card">
+          <p><strong>Input Power:</strong> 230V AC ±10%, 50/60 Hz Single Phase</p>
+          <p style="margin-top:0.5rem;"><strong>Output Rating:</strong> 16A Continuous (3.68 kW Nominal Power)</p>
+          <p style="margin-top:0.5rem;"><strong>Enclosure Protection:</strong> IP65 Target (Dust-tight, water jet resistant)</p>
+          <p style="margin-top:0.5rem;"><strong>Impact Armor:</strong> IK10 Vandal-Resistant Enclosure</p>
+        </div>
+        <div class="card">
+          <p><strong>Microcontroller:</strong> Dual-Core ESP32 240 MHz (FreeRTOS Embedded)</p>
+          <p style="margin-top:0.5rem;"><strong>Connectivity:</strong> 4G LTE-M / Wi-Fi 802.11 b/g/n / BLE 5.0 (OCPP ready)</p>
+          <p style="margin-top:0.5rem;"><strong>Cable Reel:</strong> 5.0m Motorized Drum (H07RN-F 3G2.5 + 2x0.75 mm²)</p>
+          <p style="margin-top:0.5rem;"><strong>Display Panel:</strong> 10.1" 1000-nit Sunlight-Readable TFT LCD Glass</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11 -->
+    <section class="slide" data-notes="SmartGuard EV is designed for diverse high-density urban environments: residential apartment complexes, university campuses, corporate tech parks, shopping malls, and public transit metro stations.">
+      <div class="slide-category">MARKET DEPLOYMENT</div>
+      <h2 class="slide-title">Target Deployment Applications</h2>
+      <p class="slide-subtitle">Ideal for high-density, unattended urban mobility installations.</p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>🏢 Residential Apartments</h3>
+          <p>Organized outdoor charging bays for gated communities, eliminating messy dangling extension cords.</p>
+        </div>
+        <div class="card">
+          <h3>🎓 University Campuses</h3>
+          <p>Safe student charging infrastructure with anti-tamper cable locking and audible theft sirens.</p>
+        </div>
+        <div class="card">
+          <h3>💼 Corporate Tech Parks</h3>
+          <p>Convenient daytime charging for corporate workforces with RFID access and cloud telemetry.</p>
+        </div>
+        <div class="card">
+          <h3>🛍️ Shopping Malls</h3>
+          <p>Weatherproof outdoor charging pods for retail visitors, boosting customer dwell time.</p>
+        </div>
+        <div class="card">
+          <h3>🚇 Metro Stations</h3>
+          <p>Durable last-mile mobility charging hubs for commuter electric two-wheeler fleets.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 12 -->
+    <section class="slide" data-notes="In summary, SmartGuard EV delivers a secure, organized, and weatherproof charging experience for electric two-wheelers. The full interactive 3D demonstration is live right now at localhost:3000. Thank you, and I am now ready for any questions.">
+      <div class="slide-category">SUMMARY & CONCLUSION</div>
+      <h2 class="slide-title">Conclusion & Live Demo</h2>
+      <p class="slide-subtitle">Ready for next-generation urban clean transportation.</p>
+      <div class="card card-border-green" style="padding:2.5rem;margin-bottom:2rem;">
+        <h3 style="color:var(--neon-green);margin-bottom:1rem;">Key Project Achievements</h3>
+        <p style="font-size:1.1rem;margin-bottom:0.6rem;">✔ Solves cable clutter, water exposure, theft, and thermal runaway risks.</p>
+        <p style="font-size:1.1rem;margin-bottom:0.6rem;">✔ Mandatory Seven-in-One protection verified across 3D simulation and dashboard.</p>
+        <p style="font-size:1.1rem;margin-bottom:0.6rem;">✔ Modular 8-part exploded view with precision dimensions and materials.</p>
+        <p style="font-size:1.1rem;">✔ Fully interactive WebGL/Three.js experience running locally with 0 dependencies.</p>
+      </div>
+      <div class="card" style="text-align:center;border-color:var(--cyan);">
+        <p style="font-family:var(--font-mono);font-size:1.2rem;color:var(--cyan);">
+          🌐 Live 3D Demonstration: <strong>http://localhost:3000/</strong>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- SPEAKER NOTES OVERLAY -->
+  <footer id="notes-panel" class="speaker-notes-panel">
+    <div style="font-weight:700;color:var(--neon-green);margin-bottom:0.4rem;">🎙️ SPEAKER NOTES / SCRIPT:</div>
+    <div id="notes-text">Welcome everyone. Today I am presenting SmartGuard EV...</div>
+  </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const slideNumEl = document.getElementById('slide-num');
+    const notesPanel = document.getElementById('notes-panel');
+    const notesText = document.getElementById('notes-text');
+
+    function updateSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= totalSlides) index = totalSlides - 1;
+      currentSlide = index;
+
+      slides.forEach((s, idx) => {
+        if (idx === currentSlide) {
+          s.classList.add('active');
+        } else {
+          s.classList.remove('active');
+        }
+      });
+
+      slideNumEl.textContent = `SLIDE ${String(currentSlide + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+      notesText.textContent = slides[currentSlide].getAttribute('data-notes') || 'No notes for this slide.';
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) updateSlide(currentSlide + 1);
+    }
+    function prevSlide() {
+      if (currentSlide > 0) updateSlide(currentSlide - 1);
+    }
+    function toggleNotes() {
+      notesPanel.classList.toggle('visible');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') nextSlide();
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+      if (e.key === 's' || e.key === 'S') toggleNotes();
+    });
+
+    updateSlide(0);
+  </script>
+</body>
+</html>

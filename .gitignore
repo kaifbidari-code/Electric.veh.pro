@@ -1,0 +1,12 @@
+# Node dependencies
+node_modules/
+.npm
+
+# Build outputs
+# (We will keep dist in gh-pages or build via GitHub Actions)
+dist/
+
+# OS and temporary files
+.DS_Store
+Thumbs.db
+*.log
